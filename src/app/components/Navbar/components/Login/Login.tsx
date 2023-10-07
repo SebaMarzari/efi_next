@@ -1,19 +1,25 @@
-import Link from 'next/link'
 import './styles/styles.css'
 import { Button } from "antd"
+import { useRouter } from 'next/navigation'
 
 const Login = () => {
+  const router = useRouter()
+
+  const handleNavigate = (route: string) => {
+    router.push(`/${route}`)
+  }
   return (
     <div className="login-container">
-      <Button type="primary">
-        <Link href="/access/signin">
-          Iniciar Sesión
-        </Link>
+      <Button
+        onClick={() => handleNavigate('signin')}
+      >
+        Iniciar Sesión
       </Button>
-      <Button>
-        <Link href="/access/signup">
-          Registrarme
-        </Link>
+      <Button
+        type="primary"
+        onClick={() => handleNavigate('signup')}
+      >
+        Registrarme
       </Button>
     </div>
   )
