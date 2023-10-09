@@ -1,12 +1,20 @@
+import { useContext } from 'react'
 import './styles/styles.css'
 import { Button } from "antd"
+// Hooks
 import { useRouter } from 'next/navigation'
+// Context
+import { Context } from '@/app/context/Provider/Context'
+// Types
+import { AccessType } from '@/app/context/Provider/types/ContextType'
 
 const Login = () => {
+  const { setAccessType } = useContext(Context)
   const router = useRouter()
 
-  const handleNavigate = (route: string) => {
-    router.push(`/${route}`)
+  const handleNavigate = (access: AccessType) => {
+    router.push('access')
+    setAccessType(access)
   }
   return (
     <div className="login-container">
