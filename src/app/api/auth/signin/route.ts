@@ -1,24 +1,34 @@
-import type { NextApiResponse } from "next";
 // Firebase
 import firebase_app from "@/firebase/config";
-import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  getAuth,
+  setPersistence,
+  browserLocalPersistence,
+} from "firebase/auth";
 
 const auth = getAuth(firebase_app);
 
-export async function GET(
+export async function POST(
   req: Request,
 ) {
   try {
     const json = await req.json();
     const { email, password } = json;
     const result = await signInWithEmailAndPassword(auth, email, password);
-    const accessToken = await result.user.getIdToken();
+    const { user } = result;
+    const accessToken = await user.getIdToken();
     return Response.json({
-      message: "Usuario registrado con éxito",
+      message: "Inicio de sesión exitoso",
+      user,
       accessToken,
       status: 200,
     })
   } catch (error) {
-    console.log(error)
+    return Response.json({
+      message: "Error al iniciar sesión",
+      error,
+      status: 500,
+    })
   }
 }

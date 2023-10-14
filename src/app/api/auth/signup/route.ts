@@ -12,10 +12,10 @@ export async function POST(
     const json = await req.json();
     const { email, password } = json;
     const result = await createUserWithEmailAndPassword(auth, email, password);
-    const accessToken = await result.user.getIdToken();
+    const {user} = result;
     return Response.json({
       message: "Usuario registrado con éxito",
-      accessToken,
+      data: user,
       status: 200,
     })
   } catch (error) {

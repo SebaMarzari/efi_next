@@ -1,12 +1,16 @@
 'use client'
-import { useState } from "react"
+import { useState, useContext } from "react"
 // Components
 import { Button, Input } from "antd"
 // Icons
 import { GithubOutlined, LinkedinOutlined, MailOutlined } from "@ant-design/icons"
+// Axios
 import axios from "axios"
+// Context
+import { AuthContext } from "@/app/context/AuthContextProvider/AuthContextProvider"
 
 const SignUp = () => {
+  const { setUser } = useContext(AuthContext)
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -19,7 +23,7 @@ const SignUp = () => {
 
   const signUp = async () => {
     try {
-      const res = await axios.post('/api/auth/signup', {
+      await axios.post('/api/auth/signup', {
         name,
         email,
         password
@@ -29,10 +33,10 @@ const SignUp = () => {
             'Content-Type': 'application/json'
           }
         })
-        .then(res => console.log(res))
+        .then(res => {
+          setUser(res.data)
+        })
         .catch(err => console.log(err))
-      // const data = await res.json()
-      // console.log(data)
     } catch (error) {
       console.log(error)
     }
