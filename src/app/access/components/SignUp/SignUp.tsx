@@ -1,5 +1,7 @@
 'use client'
 import { useState, useContext } from "react"
+// Next
+import { useRouter } from "next/navigation"
 // Components
 import { Button, Input } from "antd"
 // Icons
@@ -8,8 +10,11 @@ import { GithubOutlined, LinkedinOutlined, MailOutlined } from "@ant-design/icon
 import axios from "axios"
 // Context
 import { AuthContext } from "@/app/context/AuthContextProvider/AuthContextProvider"
+// Functions
+import { setCookie } from "@/functions/cookies"
 
 const SignUp = () => {
+  const router = useRouter()
   const { setUser } = useContext(AuthContext)
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -34,7 +39,12 @@ const SignUp = () => {
           }
         })
         .then(res => {
-          setUser(res.data)
+          const {user, accessToken} = res.data
+          setUser(user)
+          const userStr = JSON.stringify(user)
+          const encryptUser = Buffer.from(userStr).toString('base64')
+          setCookie('user', encryptUser)
+          router.push('/dashboard')
         })
         .catch(err => console.log(err))
     } catch (error) {
