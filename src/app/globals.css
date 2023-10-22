@@ -123,6 +123,10 @@ a {
   padding: 0 1rem;
 }
 
+.content.full {
+  width: 100vh;
+}
+
 .footer {
   display: flex;
   align-items: center;
