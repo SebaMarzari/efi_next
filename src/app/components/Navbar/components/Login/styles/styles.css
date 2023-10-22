@@ -1,7 +1,11 @@
 .login-container {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     height: 100%;
     gap: 1rem;
+}
+
+.logoNav{
+    width: 78px;
 }

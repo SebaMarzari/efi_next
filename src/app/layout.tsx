@@ -24,7 +24,7 @@ export default function RootLayout({
                 <Navbar />
               </Header>
               <Content className='content'>{children}</Content>
-              <Footer className='footer'>Footer</Footer>
+              <Footer className='footer'>© 2023 Copyright: Marzari - Moreno</Footer>
             </Layout>
           </Provider>
         </AuthContextProvider>

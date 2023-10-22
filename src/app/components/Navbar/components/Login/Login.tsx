@@ -1,5 +1,6 @@
 import { useContext } from 'react'
 import './styles/styles.css'
+import { Image } from 'antd'
 import { Button } from "antd"
 // Hooks
 import { useRouter } from 'next/navigation'
@@ -17,19 +18,23 @@ const Login = () => {
     setAccessType(access)
   }
   return (
-    <div className="login-container">
-      <Button
-        onClick={() => handleNavigate('signin')}
-      >
-        Iniciar Sesión
-      </Button>
-      <Button
-        type="primary"
-        onClick={() => handleNavigate('signup')}
-      >
-        Registrarme
-      </Button>
-    </div>
+      <>
+        <img className='logoNav' src='/images/logo.png'></img>
+
+        <div className="login-container">
+          <Button
+            onClick={() => handleNavigate('signin')}
+          >
+            Iniciar Sesión
+          </Button>
+          <Button
+            type="primary"
+            onClick={() => handleNavigate('signup')}
+          >
+            Registrarme
+          </Button>
+        </div>
+      </>
   )
 }
 

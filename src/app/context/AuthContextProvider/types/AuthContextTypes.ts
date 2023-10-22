@@ -5,4 +5,5 @@ export interface AuthContextTypes {
     setUser: (user: User | null) => void;
     loading: boolean; 
     setLoading: (loading: boolean) => void;
+    logout: () => void; // Agrego la propiedad logout
 }

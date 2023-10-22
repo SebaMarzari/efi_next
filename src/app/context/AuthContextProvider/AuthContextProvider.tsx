@@ -4,6 +4,7 @@ import {
   onAuthStateChanged,
   getAuth,
   User,
+  signOut, // Importo la función de cierre de sesión de Firebase
 } from 'firebase/auth';
 import firebase_app from '@/firebase/config';
 import { AuthContextTypes } from './types/AuthContextTypes';
@@ -19,6 +20,7 @@ export const AuthContext = React.createContext<AuthContextTypes>({
   setUser: () => { },
   loading: true, 
   setLoading: (state: boolean) => { },
+  logout: () => { }, // Me aseguro de que el logout esté definido en el contexto
 });
 
 export const useAuthContext = () => React.useContext(AuthContext);
@@ -48,12 +50,23 @@ export const AuthContextProvider: FC<{ children: ReactNode }> = ({
     return () => unsubscribe();
   }, []);
 
+  const logout = async () => {
+    try {
+      await signOut(auth); // Cerrar sesión con Firebase
+      setUser(null); // Establece el usuario en null después de cerrar sesión
+    } catch (error) {
+      console.error('Error al cerrar sesión:', error);
+    }
+  };
+
+
   return (
     <AuthContext.Provider value={{
       user,
       setUser,
       loading, 
       setLoading,
+      logout, // Agrego la funcion logout al contexto
     }}>
       {loading ? (
         <div className='loader-container'>
