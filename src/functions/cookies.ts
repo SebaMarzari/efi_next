@@ -31,6 +31,6 @@ export const checkCookie = (cname: string) => {
   if (user != "") {
     return user;
   } else {
-   return null;
+    return null;
   }
 }

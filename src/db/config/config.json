@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "next-efi-db",
+    "database": "develop",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "postgres",
+    "password": "next-efi-db",
+    "database": "test",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "postgres",
+    "password": "next-efi-db",
+    "database": "production",
+    "host": "localhost",
+    "dialect": "postgres"
+  }
+}

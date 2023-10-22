@@ -1,34 +1,48 @@
-// Firebase
-import firebase_app from "@/firebase/config";
-import {
-  signInWithEmailAndPassword,
-  getAuth,
-  setPersistence,
-  browserLocalPersistence,
-} from "firebase/auth";
-
-const auth = getAuth(firebase_app);
+// Token
+import jwt from "jsonwebtoken";
+// Bcrypt
+import bcrypt from "bcryptjs";
+import { getUserByName } from "@/db/dal/user";
+import { NextResponse } from "next/server";
 
 export async function POST(
   req: Request,
 ) {
   try {
     const json = await req.json();
-    const { email, password } = json;
-    const result = await signInWithEmailAndPassword(auth, email, password);
-    const { user } = result;
-    const accessToken = await user.getIdToken();
-    return Response.json({
-      message: "Inicio de sesión exitoso",
-      user,
-      accessToken,
-      status: 200,
-    })
+    const { name, password } = json;
+    console.log('NAME', name)
+
+    const response = await getUserByName(name);
+    if (!response) {
+      throw new Error("Usuario no encontrado");
+    }
+    if (response && (await bcrypt.compare(password, response.password))) {
+
+      // Create token
+      const token = jwt.sign(
+        { user_id: response.id, email: response.email },
+        process.env.JWT_KEY as string,
+        {
+          expiresIn: "2h",
+        }
+      );
+      return NextResponse.json({
+        message: "Inicio de sesión exitoso",
+        user: response,
+        accessToken: token,
+        status: 200,
+      })
+    }
+    return NextResponse.json({
+      message: "Usuario o contraseña incorrectos",
+      status: 401,
+    }, { status: 401 })
   } catch (error) {
-    return Response.json({
+    return NextResponse.json({
       message: "Error al iniciar sesión",
       error,
       status: 500,
-    })
+    }, { status: 500 })
   }
 }

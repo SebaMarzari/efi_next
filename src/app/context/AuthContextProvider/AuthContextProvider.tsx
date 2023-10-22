@@ -1,25 +1,25 @@
 import React, { FC, ReactNode, useState } from 'react';
-// Firebase
-import {
-  onAuthStateChanged,
-  getAuth,
-  User,
-  signOut, // Importo la función de cierre de sesión de Firebase
-} from 'firebase/auth';
-import firebase_app from '@/firebase/config';
+// Token
+import jwt from 'jsonwebtoken';
+//Types
 import { AuthContextTypes } from './types/AuthContextTypes';
 // Functions
 import { getCookie } from '@/functions/cookies';
 // Styles
 import './styles/styles.css'
+// Axios
+import axios from 'axios';
+// Functions
+import { getBasicRequestConfig } from '@/functions/getRequestConfig';
 
-const auth = getAuth(firebase_app);
 
 export const AuthContext = React.createContext<AuthContextTypes>({
   user: null,
   setUser: () => { },
-  loading: true, 
+  loading: true,
   setLoading: (state: boolean) => { },
+  token: null,
+  setToken: (token: string | null) => { },
   logout: () => { }, // Me aseguro de que el logout esté definido en el contexto
 });
 
@@ -28,31 +28,31 @@ export const useAuthContext = () => React.useContext(AuthContext);
 export const AuthContextProvider: FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState<null>(null);
+  const [token, setToken] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  const getUser = async () => {
+    const alreadyLoggedUser = getCookie('token');
+    if (alreadyLoggedUser) {
+      setToken(alreadyLoggedUser);
+      const decoded = jwt.decode(alreadyLoggedUser); // Verify the token using your secret
+      const config = getBasicRequestConfig(alreadyLoggedUser)
+      // @ts-ignore
+      const response = await axios.get(`/api/user?id=${decoded.user_id}`, config)
+      const user = response.data.user
+      setUser(user);
+    } else {
+      setUser(null);
+    }
+  }
 
   React.useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUser(user);
-      } else {
-        const alreadyLoggedUser = getCookie('user');
-        if (alreadyLoggedUser) {
-          const decryptUser = Buffer.from(alreadyLoggedUser, "base64").toString();
-          setUser(JSON.parse(decryptUser));
-        } else {
-          setUser(null);
-        }
-      }
-      setLoading(false);
-    });
-
-    return () => unsubscribe();
+    getUser()
   }, []);
 
   const logout = async () => {
     try {
-      await signOut(auth); // Cerrar sesión con Firebase
       setUser(null); // Establece el usuario en null después de cerrar sesión
     } catch (error) {
       console.error('Error al cerrar sesión:', error);
@@ -64,8 +64,10 @@ export const AuthContextProvider: FC<{ children: ReactNode }> = ({
     <AuthContext.Provider value={{
       user,
       setUser,
-      loading, 
+      loading,
       setLoading,
+      token,
+      setToken,
       logout, // Agrego la funcion logout al contexto
     }}>
       {loading ? (

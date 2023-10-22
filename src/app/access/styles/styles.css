@@ -94,16 +94,28 @@ a {
     border: 1px solid #0e263d;
 }
 
-.form-container input {
+.form-container .label {
     background: #eee;
-    border: none;
     border-radius: 50px;
     padding: 12px 15px;
     margin: 8px 0;
     width: 100%;
 }
 
-.form-container input:hover {
+.label.password {
+    width: calc(100% - 24px);
+}
+
+.label.password input {
+    border: none;
+    outline: none;
+    background: none;
+    line-height: 1;
+    color: rgba(var(--background-paper), 1);
+    letter-spacing: 1px;
+}
+
+.form-container .label:hover {
     transform: scale(101%);
 }
 
@@ -213,4 +225,12 @@ button {
 /* Same effect for right */
 .container.right-panel-active .overlay-right {
     transform: translateY(20%);
+}
+
+.alert {
+    margin: 0;
+    color: #f10000;
+    font-size: 12px;
+    text-decoration: underline;
+    user-select: none;
 }

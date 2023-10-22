@@ -3,13 +3,23 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 ## Getting Started
 
 Create .env file with access to firebase:
-NEXT_PUBLIC_FIREBASE_API_KEY
-NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
-NEXT_PUBLIC_FIREBASE_PROJECT_ID-efi
-NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
-NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
-NEXT_PUBLIC_FIREBASE_APP_ID
-NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
+```
+
+JWT_KEY="secret key of JWToken"
+NODE_ENV=environment to be worked in
+
+CONTAINER_NAME=Name of our container
+
+DB_NAME=Database name
+DB_USER=Postgres user
+DB_HOST=Host where the database is going to be run
+DB_DRIVER=Dialect of postgres
+DB_PASSWORD=Postgres password 
+DB_PORT=Port on which our postgres environment is going to run
+
+```
+
+Before starting the project, run the ```make up``` command to raise our doker container.
 
 First, run the development server:
 

@@ -18,23 +18,10 @@ const Login = () => {
     setAccessType(access)
   }
   return (
-      <>
-        <img className='logoNav' src='/images/logo.png'></img>
-
-        <div className="login-container">
-          <Button
-            onClick={() => handleNavigate('signin')}
-          >
-            Iniciar Sesión
-          </Button>
-          <Button
-            type="primary"
-            onClick={() => handleNavigate('signup')}
-          >
-            Registrarme
-          </Button>
-        </div>
-      </>
+    <div className="login-container">
+      <Button onClick={() => handleNavigate('signin')}>Iniciar Sesión</Button>
+      <Button type="primary" onClick={() => handleNavigate('signup')}>Registrarme</Button>
+    </div>
   )
 }
 

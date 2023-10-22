@@ -15,7 +15,10 @@ import { setCookie } from "@/functions/cookies"
 const SignIn = () => {
   const router = useRouter()
   const { setUser, setLoading } = useContext(AuthContext)
-  const [email, setEmail] = useState('')
+  const [message, setMessage] = useState('')
+  const [showAlert, setShowAlert] = useState(false)
+  const [loadingButton, setLoadingButton] = useState(false)
+  const [name, setName] = useState('')
   const [password, setPassword] = useState('')
 
   const handleChange = (
@@ -26,9 +29,14 @@ const SignIn = () => {
 
   const signIn = async () => {
     try {
-      setLoading(true)
+      setLoadingButton(true)
+      if (!name || !password) {
+        setMessage('Todos los campos son obligatorios')
+        setShowAlert(true)
+        return
+      }
       await axios.post('/api/auth/signin', {
-        email,
+        name,
         password
       },
         {
@@ -37,20 +45,29 @@ const SignIn = () => {
           }
         })
         .then(res => {
-          const {user, accessToken} = res.data
-          setUser(user)
-          const userStr = JSON.stringify(user)
-          const encryptUser = Buffer.from(userStr).toString('base64')
-          setCookie('user', encryptUser)
-          router.push('/dashboard')
+          if (res?.data?.status === 200) {
+            const { user, accessToken } = res.data
+            setShowAlert(false)
+            setMessage('')
+            setLoading(true)
+            setUser(user)
+            setCookie('token', accessToken)
+            router.push('/dashboard')
+          } else {
+            const { message, error } = res.data
+            console.log(message, error)
+            setMessage('Usuario o contraseña incorrectos')
+            setShowAlert(true)
+          }
         })
         .catch(err => console.log(err))
     } catch (error) {
       console.log(error)
     } finally {
+      setLoadingButton(false)
       const timer = setTimeout(() => {
-      setLoading(false)
-      },  1000)
+        setLoading(false)
+      }, 1000)
       return () => clearTimeout(timer)
     }
   }
@@ -72,21 +89,32 @@ const SignIn = () => {
         </div>
         <label>
           <Input
-            type="email"
-            placeholder="Email"
-            onChange={handleChange(setEmail)}
+            type="name"
+            className="label"
+            placeholder="Nombre"
+            onChange={handleChange(setName)}
+            value={name}
+            status={showAlert ? 'error' : undefined}
           />
         </label>
         <label>
-          <Input
+          <Input.Password
             type="password"
+            className="label password"
             placeholder="Contraseña"
+            value={password}
             onChange={handleChange(setPassword)}
+            status={showAlert ? 'error' : undefined}
           />
         </label>
+        {
+          showAlert &&
+          <p className="alert">{message}</p>
+        }
         <a href="#">Olvido la contraseña?</a>
         <Button
           onClick={signIn}
+          loading={loadingButton}
         >
           Iniciar sesión
         </Button>
