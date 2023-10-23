@@ -1,7 +1,7 @@
-import { User } from "firebase/auth";
+import { UsersAttributes } from "@/db/models/types/IUsers";
 
 export interface AuthContextTypes {
-  user: User | null;
+  user: UsersAttributes | null;
   setUser: (user: null) => void;
   loading: boolean;
   setLoading: (loading: boolean) => void;
