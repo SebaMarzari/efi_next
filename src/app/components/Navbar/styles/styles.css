@@ -5,3 +5,9 @@
     justify-content: space-between;
     align-items: center;
 }
+
+.logoNav {
+    width: 70px;
+    height: auto;
+    margin: 25px 0px 0px;
+}
