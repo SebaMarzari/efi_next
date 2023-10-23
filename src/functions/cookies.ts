@@ -34,3 +34,7 @@ export const checkCookie = (cname: string) => {
     return null;
   }
 }
+
+export const deleteCookie = (cname: string) => {
+  document.cookie = `${cname}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+}

@@ -11,7 +11,7 @@ export const authMiddleware = (handler: NextApiHandler) => async (
   if (headers) {
     // @ts-ignore
     const authorization = headers.get('authorization');
-    token = authorization.replace('Bearer ', '')
+    token = authorization?.replace('Bearer ', '')
   }
   const secret = process.env.JWT_KEY as string;
   if (!token) {

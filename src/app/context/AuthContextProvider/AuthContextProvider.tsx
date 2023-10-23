@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 //Types
 import { AuthContextTypes } from './types/AuthContextTypes';
 // Functions
-import { getCookie } from '@/functions/cookies';
+import { deleteCookie, getCookie } from '@/functions/cookies';
 // Styles
 import './styles/styles.css'
 // Axios
@@ -34,16 +34,23 @@ export const AuthContextProvider: FC<{ children: ReactNode }> = ({
 
   const getUser = async () => {
     const alreadyLoggedUser = getCookie('token');
-    if (alreadyLoggedUser) {
-      setToken(alreadyLoggedUser);
-      const decoded = jwt.decode(alreadyLoggedUser); // Verify the token using your secret
-      const config = getBasicRequestConfig(alreadyLoggedUser)
-      // @ts-ignore
-      const response = await axios.get(`/api/user?id=${decoded.user_id}`, config)
-      const user = response.data.user
-      setUser(user);
-    } else {
+    try {
+      if (alreadyLoggedUser) {
+        setToken(alreadyLoggedUser);
+        const decoded = jwt.decode(alreadyLoggedUser); // Verify the token using your secret
+        const config = getBasicRequestConfig(alreadyLoggedUser)
+        // @ts-ignore
+        const response = await axios.get(`/api/user?id=${decoded.user_id}`, config)
+        const user = response.data.user
+        setUser(user);
+      } else {
+        setUser(null);
+      }
+    } catch (error) {
       setUser(null);
+      deleteCookie('token');
+    } finally {
+      setLoading(false);
     }
   }
 

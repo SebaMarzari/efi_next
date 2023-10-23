@@ -1,7 +1,7 @@
 'use client'
 import { useContext, useEffect } from 'react';
 // Next
-import { useRouter, usePathname } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 // Styles
 import './styles/styles.css';
 // Components
@@ -13,6 +13,8 @@ import {
 import { Button, Typography } from 'antd';
 // Context
 import { Context } from '@/app/context/Provider/Context';
+import { AuthContext } from '../context/AuthContextProvider/AuthContextProvider';
+// Functions
 import { getCookie } from '@/functions/cookies';
 
 
@@ -21,6 +23,7 @@ const Access = () => {
     accessType,
     setAccessType,
   } = useContext(Context)
+  const { token } = useContext(AuthContext)
   const router = useRouter()
 
   const handleSignUp = () => {
@@ -44,10 +47,10 @@ const Access = () => {
 
   useEffect(() => {
     const isLogged = getCookie('token')
-    if (isLogged) {
+    if (isLogged && token) {
       router.push('/dashboard')
     }
-  }, [])
+  }, [token])
 
   return (
     <div

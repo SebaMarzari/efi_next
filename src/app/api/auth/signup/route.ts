@@ -1,6 +1,7 @@
 import { createUser, getUserByName } from '@/db/dal/user';
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
+import { NextResponse } from 'next/server';
 
 export async function POST(
   req: Request,
@@ -39,17 +40,17 @@ export async function POST(
         expiresIn: "2h",
       }
     );
-    return Response.json({
+    return NextResponse.json({
       message: 'Usuario creado',
       token,
       user: response,
       status: 201,
-    });
+    }, { status: 201 });
   } catch (err) {
-    return Response.json({
+    return NextResponse.json({
       message: "Error al registrar usuario",
       error: err,
       status: 400,
-    })
+    }, { status: 400 })
   }
 }

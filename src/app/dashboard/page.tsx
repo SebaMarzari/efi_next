@@ -1,7 +1,6 @@
 'use client'
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { AuthContext } from "@/app/context/AuthContextProvider/AuthContextProvider";
 import { getCookie } from "@/functions/cookies";
 
 const Dashboard = () => {
