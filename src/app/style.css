@@ -1,0 +1,38 @@
+.content-index {
+    padding: 20px;
+    text-align: center;
+    /* background-image: url('/public/images/fondo.jpeg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;*/
+} 
+  
+.imgLogo {
+    display: block;
+    margin: 0 auto;
+}
+
+.imgDB {
+    margin-top: 20px;
+    width: 350px;
+}
+  
+.title {
+    margin: 15px;
+    color: rgb(var(--typography-rgb));
+    font-size: 32px;
+}
+  
+.texto {
+    margin-top: 10px;
+    color: rgb(var(--typography-rgb));
+    font-size: 20px;
+    text-align: left;
+}
+
+.texto-invitacion {
+    margin-top: 20px;
+    color: rgb(57, 120, 175);
+    font-size: 25px;
+    font-weight: bold;
+}
