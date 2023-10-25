@@ -7,7 +7,7 @@ import { Login, Menu } from './components';
 import './styles/styles.css';
 
 const Navbar = () => {
-  const { user, logout } = useContext(AuthContext); // Importa la función de cierre de sesión desde el contexto
+  const { user, logout } = useContext(AuthContext);
   return (
     <div className="header-navbar">
       <div className="logo-container">
@@ -16,8 +16,8 @@ const Navbar = () => {
       <div className="buttons-container">
         {user ? (
           <>
-            <Menu />
-            <button onClick={logout}>Cerrar sesión</button> {/* Botón de cierre de sesión */}
+            {/* <Menu /> */}
+            <button onClick={logout}>Cerrar sesión</button>
           </>
         ) : (
           <Login />

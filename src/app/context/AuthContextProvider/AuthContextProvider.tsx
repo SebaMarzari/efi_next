@@ -60,7 +60,7 @@ export const AuthContextProvider: FC<{ children: ReactNode }> = ({
 
   const logout = async () => {
     try {
-      setUser(null); // Establece el usuario en null después de cerrar sesión
+      setUser(null);
     } catch (error) {
       console.error('Error al cerrar sesión:', error);
     }
@@ -75,7 +75,7 @@ export const AuthContextProvider: FC<{ children: ReactNode }> = ({
       setLoading,
       token,
       setToken,
-      logout, // Agrego la funcion logout al contexto
+      logout,
     }}>
       {loading ? (
         <div className='loader-container'>
