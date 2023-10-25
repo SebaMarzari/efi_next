@@ -12,7 +12,6 @@ import axios from 'axios';
 // Functions
 import { getBasicRequestConfig } from '@/functions/getRequestConfig';
 
-
 export const AuthContext = React.createContext<AuthContextTypes>({
   user: null,
   setUser: () => { },
@@ -60,7 +59,9 @@ export const AuthContextProvider: FC<{ children: ReactNode }> = ({
 
   const logout = async () => {
     try {
-      setUser(null);
+      setUser(null); 
+      setToken(null); // Quito el token (Ver)
+      deleteCookie('token'); // Borro la cookie (Ver)
     } catch (error) {
       console.error('Error al cerrar sesión:', error);
     }
