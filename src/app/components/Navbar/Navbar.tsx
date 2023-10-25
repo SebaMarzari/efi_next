@@ -2,7 +2,8 @@ import { useContext } from 'react';
 // Context
 import { AuthContext } from '@/app/context/AuthContextProvider/AuthContextProvider';
 // Components
-import { Login, Menu } from './components';
+import { Login } from './components';
+import CustomMenu from './components/Menu/Menu';
 // Styles
 import './styles/styles.css';
 
@@ -16,7 +17,7 @@ const Navbar = () => {
       <div className="buttons-container">
         {user ? (
           <>
-            {/* <Menu /> */}
+            <CustomMenu />
             <button onClick={logout}>Cerrar sesión</button>
           </>
         ) : (
