@@ -11,3 +11,25 @@
     height: auto;
     margin: 25px 0px 0px;
 }
+
+.cerrarS{
+    margin-left: 30px;
+    min-width: 130px;
+    height: 40px;
+    color: #fff;
+    padding: 5px 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+    outline: none;
+    border-radius: 20px;
+    border: 2px solid #212529;
+    background: #212529;
+}
+
+.cerrarS:hover {
+    background: #fff;
+    color: #212529
+}

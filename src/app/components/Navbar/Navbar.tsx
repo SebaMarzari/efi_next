@@ -12,13 +12,13 @@ const Navbar = () => {
   return (
     <div className="header-navbar">
       <div className="logo-container">
-        <img className='logoNav' src='/images/logo.png' alt='Logo del Grupo'></img> {/* atributo alt para la imagen del logo */}
+        <img className='logoNav' src='/images/logo.png' alt='Logo del Grupo'></img>
       </div>
       <div className="buttons-container">
         {user ? (
           <>
             <CustomMenu />
-            <button onClick={logout}>Cerrar sesión</button>
+            <button className='cerrarS' onClick={logout}>Cerrar sesión</button>
           </>
         ) : (
           <Login />

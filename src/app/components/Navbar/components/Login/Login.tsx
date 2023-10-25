@@ -1,6 +1,5 @@
 import { useContext } from 'react'
 import './styles/styles.css'
-import { Image } from 'antd'
 import { Button } from "antd"
 // Hooks
 import { useRouter } from 'next/navigation'
