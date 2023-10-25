@@ -1,33 +1,29 @@
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
+import { cookies } from 'next/headers'
 import jwt from 'jsonwebtoken';
-import { NextResponse } from 'next/server';
+import { redirect } from 'next/navigation';
 
 export const authMiddleware = (handler: NextApiHandler) => async (
   req: NextApiRequest,
   res: NextApiResponse,
 ) => {
-  const headers = req.headers;
-  let token: string | undefined;
-  if (headers) {
-    // @ts-ignore
-    const authorization = headers.get('authorization');
-    token = authorization?.replace('Bearer ', '')
-  }
+  const cookieList = cookies()
+  const token = cookieList.get('token')
   const secret = process.env.JWT_KEY as string;
   if (!token) {
-    return NextResponse.json({ message: 'No se proporcionó un token de autenticación.' }, { status: 401 });
+    return redirect('/access')
   }
 
   try {
-    const decoded = jwt.verify(token, secret); // Verify the token using your secret
+    const decoded = jwt.verify(token.value, secret);
 
-    // You can perform additional checks here, such as verifying if the user exists in the database, if they have the appropriate permissions, etc.
     if (!decoded) {
-      return NextResponse.json({ message: 'Token no válido o vencido.' }, { status: 401 });
+      cookieList.delete('token')
+      return redirect('/access')
     }
 
     return handler(req, res);
   } catch (error) {
-    return NextResponse.json({ message: 'Token no válido o vencido.' }, { status: 401 });
+    return redirect('/access')
   }
 };

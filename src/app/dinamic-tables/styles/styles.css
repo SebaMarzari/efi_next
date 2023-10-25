@@ -29,3 +29,19 @@
 .input-table-name {
     width: 25%;
 }
+
+.form-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-item>* {
+    width: 100%;
+}
+
+.ant-form-item-control-input-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

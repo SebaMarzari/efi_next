@@ -1,4 +1,4 @@
-import { authMiddleware } from "@/middleware/auth";
+import { authMiddleware } from "@/app/api/middleware/auth";
 import { getUserById } from "@/db/dal/user";
 import { NextApiRequest, NextApiResponse } from "next";
 import { NextResponse } from "next/server";
