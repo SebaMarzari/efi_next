@@ -12,8 +12,13 @@
     margin: 25px 0px 0px;
 }
 
+.contenedorMyB {
+    display: flex;
+    align-items: center;
+}
+
 .cerrarS{
-    margin-left: 30px;
+    margin-right: 25px;
     min-width: 130px;
     height: 40px;
     color: #fff;

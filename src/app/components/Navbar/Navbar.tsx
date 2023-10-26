@@ -2,8 +2,7 @@ import { useContext } from 'react';
 // Context
 import { AuthContext } from '@/app/context/AuthContextProvider/AuthContextProvider';
 // Components
-import { Login } from './components';
-import CustomMenu from './components/Menu/Menu';
+import { Login, Menu } from './components';
 // Styles
 import './styles/styles.css';
 
@@ -14,11 +13,11 @@ const Navbar = () => {
       <div className="logo-container">
         <img className='logoNav' src='/images/logo.png' alt='Logo del Grupo'></img>
       </div>
-      <div className="buttons-container">
+      <div className="buttons-container contenedorMyB">
         {user ? (
           <>
-            <CustomMenu />
             <button className='cerrarS' onClick={logout}>Cerrar sesión</button>
+            <Menu />
           </>
         ) : (
           <Login />

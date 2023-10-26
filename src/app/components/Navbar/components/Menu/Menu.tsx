@@ -1,23 +1,28 @@
-import React from 'react';
-import { Menu, Dropdown } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
+import React, { useState } from "react";
+// Styles
+import './styles/styles.css';
 
-const CustomMenu = () => {
-  const menu = (
-    <Menu className='menu'>
-      <Menu.Item key="account">Mi cuenta</Menu.Item>
-      <Menu.Item key="settings">Ajustes</Menu.Item>
-      <Menu.Item key="model-generator">Generador de modelos DB</Menu.Item>
-    </Menu>
-  );
+const Menu = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
 
   return (
-    <Dropdown overlay={menu} placement="bottomLeft">
-      <span>
-        Menú <DownOutlined />
-      </span>
-    </Dropdown>
+    <div className="menu">
+      <div className="hamburger-icon" onClick={toggleMenu}>
+        ☰
+      </div>
+      {isOpen && (
+        <ul className="menu-items">
+          <li>Mi Cuenta</li>
+          <li>Ajustes</li>
+          <li>Generador</li>
+        </ul>
+      )}
+    </div>
   );
 };
 
-export default CustomMenu;
+export default Menu;
