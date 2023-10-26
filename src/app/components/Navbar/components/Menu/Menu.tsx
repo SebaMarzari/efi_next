@@ -1,10 +1,11 @@
 import React, { useState } from "react";
+import Link from 'next/link';
 // Styles
 import './styles/styles.css';
 
 const Menu = () => {
   const [isOpen, setIsOpen] = useState(false);
-
+  
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -18,7 +19,9 @@ const Menu = () => {
         <ul className="menu-items">
           <li>Mi Cuenta</li>
           <li>Ajustes</li>
-          <li>Generador</li>
+          <Link href="/dinamic-tables">
+            <li>Generador</li>
+          </Link>
         </ul>
       )}
     </div>

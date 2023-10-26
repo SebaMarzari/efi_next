@@ -21,6 +21,7 @@
     display: none;
     min-width: 150px;
     flex-direction: column;
+    z-index: 1;
   }
   
   .menu-items li {
