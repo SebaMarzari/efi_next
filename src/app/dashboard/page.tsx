@@ -1,11 +1,11 @@
 import { authMiddleware } from "@/middleware/auth";
-// import BarChart from "../components/BarChart";
+import ModelList from "../components/ModelList";
 
 const Dashboard = () => {
   return (
     <div>
       <h1> Hello world from dashboard!!</h1>
-      {/* <BarChart/> */}
+      <ModelList />
     </div>
   );
 };
