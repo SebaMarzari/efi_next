@@ -11,7 +11,6 @@ export async function POST(
   try {
     const json = await req.json();
     const { name, password } = json;
-    console.log('NAME', name)
 
     const response = await getUserByName(name);
     if (!response) {

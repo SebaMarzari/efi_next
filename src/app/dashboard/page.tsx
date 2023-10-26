@@ -1,19 +1,7 @@
-'use client'
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { getCookie } from "@/functions/cookies";
+import { authMiddleware } from "@/middleware/auth";
 import BarChart from "../components/BarChart";
 
 const Dashboard = () => {
-  const router = useRouter()
-
-  useEffect(() => {
-    const isLogged = getCookie('token')
-    if (!isLogged) {
-      router.push('/access')
-    }
-  }, [])
-
   return (
     <div>
       <h1> Hello world from dashboard!!</h1>
@@ -22,4 +10,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default authMiddleware(Dashboard);
