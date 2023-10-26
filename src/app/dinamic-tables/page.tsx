@@ -16,9 +16,7 @@ const DinamicTables = () => {
         >
           Tablas dinamicas
         </h1>
-        <Link
-          href="/dinamic-tables/add"
-        >
+        <Link href="/dinamic-tables/add">
           Agregar
         </Link>
       </div>

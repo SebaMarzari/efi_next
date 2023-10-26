@@ -17,6 +17,37 @@
     align-items: center;
 }
 
+.volver{
+    margin-right: 20px;
+    font-weight: 0;
+    font-size: 14px;
+    color: #fff;
+    background-color: #000000;
+    padding: 5px 10px;
+    border: solid #000000 2px;
+    box-shadow: rgb(0, 0, 0) 0px 0px 0px 0px;
+    border-radius: 50px;
+    transition : 1000ms;
+    transform: translateY(0);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+}
+
+.volver p {
+    font-size: 20px;
+}
+
+.volver:hover{
+    transition : 1000ms;
+    padding: 5px 10px;
+    transform : translateY(-0px);
+    background-color: #fff;
+    color: #000000;
+    border: solid 2px #000000;
+}
+
 .cerrarS{
     margin-right: 25px;
     min-width: 130px;

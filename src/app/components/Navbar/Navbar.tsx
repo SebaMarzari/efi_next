@@ -5,9 +5,15 @@ import { AuthContext } from '@/app/context/AuthContextProvider/AuthContextProvid
 import { Login, Menu } from './components';
 // Styles
 import './styles/styles.css';
+import Link from 'next/link';
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
+
+  const goBack = () => {
+      window.history.back();
+  };
+
   return (
     <div className="header-navbar">
       <div className="logo-container">
@@ -16,7 +22,14 @@ const Navbar = () => {
       <div className="buttons-container contenedorMyB">
         {user ? (
           <>
-            <button className='cerrarS' onClick={logout}>Cerrar sesión</button>
+            <button className='volver' onClick={goBack}>
+              <p> &laquo; </p>
+            </button>
+
+            <Link href='/'>
+              <button className='cerrarS' onClick={logout}>Cerrar sesión</button>
+            </Link>
+            
             <Menu />
           </>
         ) : (

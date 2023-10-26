@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Link from 'next/link';
 // Styles
 import './styles/styles.css';
+import { authMiddleware } from "@/middleware/auth";
 
 const Menu = () => {
   const [isOpen, setIsOpen] = useState(false);
