@@ -7,7 +7,7 @@ import './styles/styles.css'
 const Dashboard = () => {
   return (
     <div className="dashboard">
-      <h1 className="title">Bienvenido al Tablero de Control de Modelos Database</h1>
+      <h1 className="title">Hola, Usuario</h1>
       <p className="text">En esta plataforma, puedes acceder a la lista de tablas de la base de datos y generar nuevos modelos.</p>
       <p className="text">¡Explora y gestiona tus modelos de manera sencilla y eficiente!</p>
       <Link href="/dinamic-tables">
