@@ -1,9 +1,9 @@
 'use client'
-import { Checkbox, Form, Input, Select } from "antd"
+import { Checkbox, Form, Input, InputNumber, Select } from "antd"
 import { CheckboxChangeEvent } from "antd/es/checkbox";
 // Types
 import { Item } from "../../types/Item";
-import { ISelect } from "../../types/ISelect";
+import { ISelect } from "@/app/types/ISelect";
 import { ITable } from "../../types/ITable";
 import { useEffect, useState } from "react";
 
@@ -41,7 +41,6 @@ const CustomInput: React.FC<EditableCellProps> = ({
       if (fields) {
         const table = fields[value]
         const newRelatedTable = table?.map(column => ({ label: column.column_name, value: column.column_name }))
-        console.log(newRelatedTable)
         setRelatedTable(newRelatedTable || [])
       }
     }
@@ -50,7 +49,6 @@ const CustomInput: React.FC<EditableCellProps> = ({
       handleSelectTable(record.existingTables)
     }
   }, [fields, record, record?.existingTables])
-
 
   return (
     <td

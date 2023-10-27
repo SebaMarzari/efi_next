@@ -16,8 +16,8 @@ export const GET = authMiddleware(async (
     const tableNames = listTables.filter((table) => table !== 'SequelizeMeta');
     const response = tableNames.map((table) => {
       return {
-        value: table,
-        label: table,
+        key: table,
+        name: table,
       }
     });
     return NextResponse.json({

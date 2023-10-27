@@ -1,10 +1,6 @@
-import { ISelect } from "../types/ISelect";
+import { ISelect } from "../../../../../types/ISelect";
 
 export const dataTypes: ISelect[] = [
-    {
-        "value": "ABSTRACT",
-        "label": "ABSTRACT"
-    },
     {
         "value": "STRING",
         "label": "STRING"
@@ -28,10 +24,6 @@ export const dataTypes: ISelect[] = [
     {
         "value": "SMALLINT",
         "label": "SMALLINT"
-    },
-    {
-        "value": "MEDIUMINT",
-        "label": "MEDIUMINT"
     },
     {
         "value": "INTEGER",
@@ -60,10 +52,6 @@ export const dataTypes: ISelect[] = [
     {
         "value": "BOOLEAN",
         "label": "BOOLEAN"
-    },
-    {
-        "value": "NOW",
-        "label": "NOW"
     },
     {
         "value": "BLOB",
@@ -102,10 +90,6 @@ export const dataTypes: ISelect[] = [
         "label": "JSONB"
     },
     {
-        "value": "VIRTUAL",
-        "label": "VIRTUAL"
-    },
-    {
         "value": "ARRAY",
         "label": "ARRAY"
     },
@@ -124,10 +108,6 @@ export const dataTypes: ISelect[] = [
     {
         "value": "DOUBLE PRECISION",
         "label": "DOUBLE PRECISION"
-    },
-    {
-        "value": "DOUBLE",
-        "label": "DOUBLE"
     },
     {
         "value": "GEOMETRY",

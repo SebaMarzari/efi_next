@@ -1,0 +1,40 @@
+export function translateToPostgreSQLTypes(inputList: string): string {
+  const typeMapping: Record<string, string | null> = {
+    STRING: 'VARCHAR',
+    CHAR: 'CHAR',
+    TEXT: 'VARCHAR',
+    NUMBER: 'NUMERIC',
+    TINYINT: 'SMALLINT',
+    SMALLINT: 'SMALLINT',
+    INTEGER: 'INTEGER',
+    BIGINT: 'BIGINT',
+    FLOAT: 'REAL',
+    TIME: 'TIME',
+    DATE: 'DATE',
+    DATEONLY: 'DATE',
+    BOOLEAN: 'BOOLEAN',
+    BLOB: 'BYTEA',
+    DECIMAL: 'NUMERIC',
+    NUMERIC: 'NUMERIC',
+    UUID: 'UUID',
+    UUIDV1: 'UUID',
+    UUIDV4: 'UUID',
+    HSTORE: 'HSTORE',
+    JSON: 'JSON',
+    JSONB: 'JSONB',
+    ARRAY: 'ARRAY',
+    ENUM: 'ENUM',
+    RANGE: 'RANGE',
+    REAL: 'REAL',
+    'DOUBLE PRECISION': 'DOUBLE PRECISION',
+    GEOMETRY: 'GEOMETRY',
+    GEOGRAPHY: 'GEOGRAPHY',
+    CIDR: 'CIDR',
+    INET: 'INET',
+    MACADDR: 'MACADDR',
+    CITEXT: 'CITEXT',
+    TSVECTOR: 'TSVECTOR'
+  };
+
+  return typeMapping[inputList] as string;
+}

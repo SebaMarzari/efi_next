@@ -3,3 +3,9 @@ export const getBasicRequestConfig = (jwt: string) => {
         headers: { authorization: `Bearer ${jwt}` },
     };
 };
+
+export const getContentTypeJsonRequestConfig = (jwt: string) => {
+    return {
+        headers: { Authorization: `Bearer ${jwt}`, 'Content-Type': 'application/json' },
+    };
+};

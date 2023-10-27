@@ -1,56 +1,25 @@
 'use client'
+import { ISelect } from "@/app/types/ISelect";
+import { getCookie } from "@/functions/cookies";
+import { getBasicRequestConfig } from "@/functions/getRequestConfig";
 // Components/antd
 import { Table as TableAnt } from "antd";
-// Moment
-import moment from "moment";
+import axios from "axios";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
-const DATE_FORMAT = "DD/MM/YYYY HH:mm";
+interface ITable {
+  key: string;
+  name: string;
+}
 
 const Table = () => {
-  const dataSource = [
-    {
-      key: '1',
-      name: 'com.empresa.proyecto',
-      type: 'STRING',
-      characterQty: 20,
-      createdAt: moment().format(DATE_FORMAT),
-      updatedAt: moment().format(DATE_FORMAT),
-      actions: '1'
-    },
-    {
-      key: '2',
-      name: 'John',
-      age: 42,
-      address: '10 Downing Street',
-    },
-  ];
-
+  const [tables, setTables] = useState<ITable[]>([])
   const columns = [
     {
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
-    },
-    {
-      title: 'Tipo',
-      dataIndex: 'type',
-      key: 'type',
-    },
-    {
-      title: 'Cant. Caracteres',
-      dataIndex: 'characterQty',
-      key: 'characterQty',
-    },
-    {
-      title: 'Creado el',
-      dataIndex: 'createdAt',
-      key: 'createdAt',
-    },
-    {
-      title: 'Actializado el',
-      dataIndex: 'updatedAt',
-      key: 'updatedAt',
     },
     {
       title: 'Acciones',
@@ -67,8 +36,19 @@ const Table = () => {
       )
     },
   ];
+
+  useEffect(() => {
+    const getTables = async () => {
+      const token = getCookie('token');
+      const config = getBasicRequestConfig(token);
+      const { data } = await axios.get('/api/models', config);
+      setTables(data.tableNames);
+    }
+    getTables();
+  }, [])
+
   return (
-    <TableAnt dataSource={dataSource} columns={columns} />
+    <TableAnt dataSource={tables} columns={columns} />
   )
 }
 
