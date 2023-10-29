@@ -1,5 +1,5 @@
 'use client'
-import { useContext, useEffect } from 'react';
+import { useCallback, useContext, useEffect } from 'react';
 // Next
 import { useRouter } from 'next/navigation';
 // Styles
@@ -26,16 +26,17 @@ const Access = () => {
   const { token } = useContext(AuthContext)
   const router = useRouter()
 
-  const handleSignUp = () => {
+  const handleSignUp = useCallback(() => {
     const container = document.getElementById('container')
     container?.classList.add('right-panel-active')
     setAccessType('signup')
-  }
-  const handleSignIn = () => {
+  }, [setAccessType])
+
+  const handleSignIn = useCallback(() => {
     const container = document.getElementById('container')
     container?.classList.remove('right-panel-active')
     setAccessType('signin')
-  }
+  }, [setAccessType])
 
   useEffect(() => {
     if (accessType === 'signup') {
@@ -43,14 +44,14 @@ const Access = () => {
     } else if (accessType === 'signin') {
       handleSignIn()
     }
-  }, [accessType])
+  }, [accessType, handleSignIn, handleSignUp])
 
   useEffect(() => {
     const isLogged = getCookie('token')
     if (isLogged && token) {
       router.push('/dashboard')
     }
-  }, [token])
+  }, [token, router])
 
   return (
     <div
