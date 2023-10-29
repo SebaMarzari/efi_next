@@ -121,6 +121,7 @@ a {
   color: rgba(var(--typography-rgb), 0.85);
   background-color: rgba(var(--background-default), 0.8);
   padding: 0 1rem;
+  overflow: auto;
 }
 
 .content.full {

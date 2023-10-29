@@ -1,8 +1,10 @@
-import Users from "../models/users";
-import { IUsers, UsersCreationAttributes, UsersAttributes } from "../models/types/IUsers";
+import { users, usersAttributes, usersCreationAttributes } from "../models/users";
+import sequelize from "../models/sequelize";
+
+const Users = users.initModel(sequelize);
 
 // Create a new user
-export const createUser = async (payload: UsersCreationAttributes): Promise<UsersAttributes> => {
+export const createUser = async (payload: usersCreationAttributes): Promise<usersAttributes> => {
   try {
     const newUser = await Users.create(payload);
 
@@ -13,7 +15,7 @@ export const createUser = async (payload: UsersCreationAttributes): Promise<User
 }
 
 // Update an existing user
-export const updateUser = async (id: number, payload: IUsers): Promise<UsersAttributes> => {
+export const updateUser = async (id: number, payload: usersAttributes): Promise<usersAttributes> => {
   try {
     const user = await Users.findByPk(id);
     if (!user) {
@@ -29,7 +31,7 @@ export const updateUser = async (id: number, payload: IUsers): Promise<UsersAttr
 }
 
 // Get a user by id
-export const getUserById = async (id: number): Promise<UsersAttributes> => {
+export const getUserById = async (id: number): Promise<usersAttributes> => {
   try {
     const user = await Users.findByPk(id);
     if (!user) {
@@ -43,7 +45,7 @@ export const getUserById = async (id: number): Promise<UsersAttributes> => {
 }
 
 // Get a user by name
-export const getUserByName = async (name: string): Promise<UsersAttributes | null> => {
+export const getUserByName = async (name: string): Promise<usersAttributes | null> => {
   try {
     const user = await Users.findOne({
       where: {
@@ -78,8 +80,8 @@ export const deleteUser = async (id: number): Promise<boolean> => {
   }
 }
 
-// Get all users
-export const getAllUsers = async (): Promise<UsersAttributes[]> => {
+// Get all Users
+export const getAllUsers = async (): Promise<usersAttributes[]> => {
   try {
     const user = await Users.findAll();
 
