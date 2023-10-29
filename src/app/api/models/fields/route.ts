@@ -11,20 +11,19 @@ export const GET = authMiddleware(async (
     await sequelize.sync({ force: false });
     const { searchParams } = new URL(req.url as string)
     const tableName = searchParams.get('tableName');
-    const results = await sequelize.query(
-      `SELECT json_object_agg('columns', columns) AS column_info
-        FROM(SELECT json_agg(json_build_object
-          ('vaule', column_name, 'label', column_name)) AS columns
+    const query = `SELECT 
+            column_name,
+            data_type,
+            is_nullable,
+            character_maximum_length,
+            column_default
           FROM information_schema.columns 
           WHERE table_schema = 'public'
-          AND table_name = '${tableName}'
-        GROUP BY table_name) AS table_columns;`
-    );
-    //@ts-ignore
-    const fieldsTable = results[0][0].column_info.columns;
+          AND table_name = '${tableName}'`
+    const results = await sequelize.query(query);
     return NextResponse.json({
       message: 'Modelos obtenidos',
-      fieldsTable,
+      data: results[0],
       status: 200,
     });
   } catch (err) {
