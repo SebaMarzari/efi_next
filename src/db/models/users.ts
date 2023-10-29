@@ -1,43 +1,72 @@
+import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
-import sequelize from './sequelize';
-import { UsersAttributes, UsersCreationAttributes } from './types/IUsers';
 
-// Declare the model
-class Users extends Model<UsersAttributes, UsersCreationAttributes> implements UsersAttributes {
-  public id!: number;
-  public name!: string;
-  public email!: string;
-  public password!: string;
-
-  // name of the model in the database
-  public static modelName = 'users';
+export interface usersAttributes {
+  id: number;
+  name?: string;
+  email?: string;
+  password?: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
-// Init model
-Users.init(
-  {
-    id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true,
-    },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-  },
-  {
-    sequelize, // Connect to database
-    modelName: 'users', // Name of the model in the database
-  }
-);
+export type usersPk = "id";
+export type usersId = users[usersPk];
+export type usersOptionalAttributes = "id" | "name" | "email" | "password" | "createdAt" | "updatedAt";
+export type usersCreationAttributes = Optional<usersAttributes, usersOptionalAttributes>;
 
-export default Users;
+export class users extends Model<usersAttributes, usersCreationAttributes> implements usersAttributes {
+  id!: number;
+  name?: string;
+  email?: string;
+  password?: string;
+  createdAt!: Date;
+  updatedAt!: Date;
+
+  static initModel(sequelize: Sequelize.Sequelize): typeof users {
+    return users.init({
+      id: {
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true
+      },
+      name: {
+        type: DataTypes.STRING(255),
+        allowNull: true
+      },
+      email: {
+        type: DataTypes.STRING(255),
+        allowNull: true
+      },
+      password: {
+        type: DataTypes.STRING(255),
+        allowNull: true
+      },
+      createdAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+      },
+      updatedAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+      }
+    }, {
+      sequelize,
+      tableName: 'users',
+      schema: 'public',
+      timestamps: true,
+      indexes: [
+        {
+          name: "users_pkey",
+          unique: true,
+          fields: [
+            { name: "id" },
+          ]
+        },
+      ]
+    });
+  }
+}

@@ -14,18 +14,16 @@ import { CustomInput } from "./components";
 import { v4 } from "uuid";
 // Types
 import { Item } from "./types/Item";
+import { ITable } from "./types/ITable";
 // Utils
 import { dataTypes } from "./utils/dataTypes";
 import axios from "axios";
+// Functions
 import { getBasicRequestConfig, getContentTypeJsonRequestConfig } from "@/functions/getRequestConfig";
 import { getCookie } from "@/functions/cookies";
+import { Index } from "./types/Index";
 
 const DATE_FORMAT = "DD/MM/YYYY HH:mm";
-
-interface Index {
-  name: string;
-  field: string;
-}
 
 const TableForm = () => {
   const router = useRouter()
@@ -239,7 +237,11 @@ const TableForm = () => {
       axios.get('/api/models', config),
       axios.get('/api/models/list', config),
     ])
-    setTables(response[0].data.tableNames)
+    const tables = response[0].data.tableNames.map((item: ITable) => ({
+      label: item.name,
+      value: item.name,
+    }))
+    setTables(tables)
     setFields(response[1].data.tables)
   }
 
