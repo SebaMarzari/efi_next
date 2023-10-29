@@ -8,7 +8,8 @@ export const setCookie = (cname: string, cvalue: string) => {
   const d = new Date();
   d.setTime(d.getTime() + (EXP_DAYS * EXP_HOURS * EXP_MINUTES * EXP_SECONDS * EXP_MILLISECONDS));
   let expires = `expires=${d.toUTCString()}`;
-  document.cookie = `${cname}=${cvalue};${expires};path=/`;
+  let cookieOptions = `path=/; secure; samesite=None`;
+  document.cookie = `${cname}=${cvalue};${expires};${cookieOptions}`;
 }
 
 export const getCookie = (cname: string) => {
@@ -36,5 +37,5 @@ export const checkCookie = (cname: string) => {
 }
 
 export const deleteCookie = (cname: string) => {
-  document.cookie = `${cname}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+  document.cookie = `${cname}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; samesite=None; secure;`;
 }
