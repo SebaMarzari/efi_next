@@ -9,7 +9,7 @@
     "lint": "next lint",
     "sequelize": "sequelize",
     "db:create": "sequelize db:create --env development --config src/db/config/config.json",
-    "db:migrate:generate": "sequelize migration:generate --env development --config src/db/config/config.json --name --migrations-path src/db/migrations",
+    "db:migrate:generate": "sequelize migration:generate --env development --config src/db/config/config.json --migrations-path src/db/migrations --name",
     "db:migrate": "sequelize db:migrate --env development --config src/db/config/config.json --migrations-path src/db/migrations",
     "db:seed": "sequelize db:seed:all --env development --config src/db/config/config.json --seeders-path src/db/seeders"
   },
