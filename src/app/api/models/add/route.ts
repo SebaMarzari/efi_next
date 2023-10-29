@@ -54,7 +54,7 @@ export const POST = authMiddleware(async (
     const dbPassword = process.env.DB_PASSWORD as string;
     const dbHost = process.env.DB_HOST as string;
     const dbPort = Number(process.env.DB_PORT);
-    const script = `npx sequelize-auto -o "./src/db/models" -d ${dbName} -h ${dbHost} -u ${dbUser} -p ${dbPort} -x ${dbPassword} -e ${dbUser} --lang ts --noInitModels`
+    const script = `npx sequelize-auto -o "./src/db/models" -d ${dbName} -h ${dbHost} -u ${dbUser} -p ${dbPort} -x ${dbPassword} -e ${dbUser} --lang ts --noInitModels --useDefine`
     const { exec } = require("child_process");
     exec(script, (error: any, stdout: any, stderr: any) => {
       if (error) {
