@@ -13,11 +13,10 @@ const Dashboard = () => {
       .then((data) => setUserName(data.userName))
       .catch((error) => console.error("Error al obtener el nombre de usuario", error));
   }, []);
-
-  
+   
   return (
     <div className="dashboard">
-      <h1 className="title">Hola, {userName || "Usuario"}</h1>
+      <h1 className="title">Hola, {userName || "Usuario"}</h1> 
       <p className="text">En esta plataforma, puedes acceder a la lista de tablas de la base de datos y generar nuevos modelos.</p>
       <p className="text">¡Explora y gestiona tus modelos de manera sencilla y eficiente!</p>
       <Link href="/dinamic-tables">
