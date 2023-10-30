@@ -6,7 +6,8 @@ import { getBasicRequestConfig } from "@/functions/getRequestConfig";
 import { Table as TableAnt } from "antd";
 import axios from "axios";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import ModelDetails from "@/app/dinamic-tables/components/Table/components/ModelDetails/ModelDetails";
 
 interface ITable {
   key: string;
@@ -15,6 +16,8 @@ interface ITable {
 
 const Table = () => {
   const [tables, setTables] = useState<ITable[]>([])
+  const [selectedModel, setSelectedModel] = useState<string | null>(null);
+
   const columns = [
     {
       title: 'Name',
@@ -27,11 +30,7 @@ const Table = () => {
       key: 'actions',
       render: (id: string) => (
         <div className='buttons-table-container'>
-          <Link
-            href={`/dinamic-tables/edit/${id}`}
-          >
-            Editar
-          </Link>
+          <button onClick={() => setSelectedModel(id)}>Ver más</button>
         </div>
       )
     },
@@ -48,7 +47,15 @@ const Table = () => {
   }, [])
 
   return (
-    <TableAnt dataSource={tables} columns={columns} />
+    // <TableAnt dataSource={tables} columns={columns} />
+    <div>
+      <TableAnt dataSource={tables} columns={columns} />
+      {selectedModel && (
+        <div>
+          <ModelDetails modelName={selectedModel} /> {/* Renderiza ModelDetails con el modelo seleccionado */}
+        </div>
+      )}
+    </div>
   )
 }
 
