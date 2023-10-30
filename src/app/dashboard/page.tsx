@@ -8,7 +8,6 @@ const Dashboard = () => {
   const [userName, setUserName] = useState("");
 
   useEffect(() => {
-    // Realiza la llamada a la API en este componente (cliente)
     fetch("/api/models/fields?tableName=users")
       .then((response) => response.json())
       .then((data) => setUserName(data.userName))
