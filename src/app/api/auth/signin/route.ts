@@ -16,7 +16,7 @@ export async function POST(
     if (!response) {
       throw new Error("Usuario no encontrado");
     }
-    if (response && (await bcrypt.compare(password, response.password))) {
+    if (response && (await bcrypt.compare(password, response.password as string))) {
 
       // Create token
       const token = jwt.sign(

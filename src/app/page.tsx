@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 // Styles
 import './style.css'
 
@@ -6,7 +7,7 @@ export default function App() {
   return (
     <div className='content-index'>
       <header>
-        <img className='imgLogo' src="/images/logo.png" alt="Logo del Grupo" />
+        <Image className='imgLogo' src="/images/logo.png" width='150' height='150' alt="Logo del Grupo"  />
       </header>
       <main>
         <h1 className='title'>Automatización del Modelado de Bases de Datos con NextJS y Sequelize</h1>
@@ -29,7 +30,7 @@ export default function App() {
           ¡Ingresa a nuestra plataforma y aumenta tu productividad en el desarrollo de bases de datos!
         </p>
 
-        <img className='imgDB' src="/images/database.webp" alt="Logo del Grupo" />
+        <Image className='imgDB' src="/images/database.webp" width='350' height='300' alt="Logo del Grupo" />
       </main>
     </div>
   );
