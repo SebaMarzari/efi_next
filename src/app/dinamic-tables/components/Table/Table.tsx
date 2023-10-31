@@ -47,7 +47,6 @@ const Table = () => {
   }, [])
 
   return (
-    // <TableAnt dataSource={tables} columns={columns} />
     <div>
       <TableAnt dataSource={tables} columns={columns} />
       {selectedModel && (

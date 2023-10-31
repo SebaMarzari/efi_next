@@ -3,6 +3,7 @@ import './styles/styles.css'
 import { authMiddleware } from "@/middleware/auth";
 import Link from "next/link";
 import { Table } from './components';
+import ModelDetails from './components/Table/components/ModelDetails';
 
 const DinamicTables = () => {
 
@@ -21,6 +22,7 @@ const DinamicTables = () => {
         </Link>
       </div>
       <Table />
+      <ModelDetails modelName={''} />
     </div>
   );
 }

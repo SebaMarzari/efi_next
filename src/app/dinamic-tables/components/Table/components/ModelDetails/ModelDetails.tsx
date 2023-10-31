@@ -1,3 +1,4 @@
+"use client"
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -9,16 +10,8 @@ interface Item {
   key: string;
   columnName: string;
   type: string;
-  properties: string;
-  existingTables: string;
-  relatedTable: string;
-  uniqueValue: boolean;
   defaultValue: boolean;
-  value: string;
   isNullable: boolean;
-  actions: string;
-  createdAt: string;
-  updatedAt: string;
 }
 
 const ModelDetails: React.FC<ModelDetailsProps> = ({ modelName }) => {
@@ -37,16 +30,8 @@ const ModelDetails: React.FC<ModelDetailsProps> = ({ modelName }) => {
             key: "default",
             columnName: "Nombre de Columna por Defecto",
             type: "Tipo por Defecto",
-            properties: "Propiedades por Defecto",
-            existingTables: "Tablas Existentes por Defecto",
-            relatedTable: "Tabla Relacionada por Defecto",
-            uniqueValue: false,
             defaultValue: false,
-            value: "Valor por Defecto",
             isNullable: false,
-            actions: "Acciones por Defecto",
-            createdAt: "Creado en por Defecto",
-            updatedAt: "Actualizado en por Defecto",
           },
         ]);
       }
@@ -64,16 +49,8 @@ const ModelDetails: React.FC<ModelDetailsProps> = ({ modelName }) => {
             <li key={item.key}>
               <strong>Nombre de Columna:</strong> {item.columnName}<br />
               <strong>Tipo:</strong> {item.type}<br />
-              <strong>Propiedades:</strong> {item.properties}<br />
-              <strong>Tablas Existentes:</strong> {item.existingTables}<br />
-              <strong>Tabla Relacionada:</strong> {item.relatedTable}<br />
-              <strong>Valor Único:</strong> {item.uniqueValue ? "Sí" : "No"}<br />
               <strong>Valor por Defecto:</strong> {item.defaultValue ? "Sí" : "No"}<br />
-              <strong>Valor:</strong> {item.value}<br />
               <strong>Es Nullable:</strong> {item.isNullable ? "Sí" : "No"}<br />
-              <strong>Acciones:</strong> {item.actions}<br />
-              <strong>Creado en:</strong> {item.createdAt}<br />
-              <strong>Actualizado en:</strong> {item.updatedAt}<br />
             </li>
           ))}
         </ul>
@@ -83,5 +60,4 @@ const ModelDetails: React.FC<ModelDetailsProps> = ({ modelName }) => {
     </div>
   );
 };
-
 export default ModelDetails;
