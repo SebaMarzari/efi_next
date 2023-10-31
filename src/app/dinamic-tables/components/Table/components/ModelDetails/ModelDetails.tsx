@@ -1,9 +1,16 @@
 "use client"
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import jwt, { JwtPayload } from 'jsonwebtoken';
+import { getCookie } from "@/functions/cookies";
+import { getBasicRequestConfig } from "@/functions/getRequestConfig";
 
 interface ModelDetailsProps {
   modelName: string;
+}
+
+interface DecodedToken extends JwtPayload {
+  user_id: string;
 }
 
 interface Item {
@@ -21,8 +28,16 @@ const ModelDetails: React.FC<ModelDetailsProps> = ({ modelName }) => {
     const fetchModelDetails = async () => {
       // Realizo la solicitud a la API para obtener los detalles del modelo
       try {
-        const response = await axios.get(`/api/models/fields?tableName=${modelName}`);
-        setDetails(response.data.data);
+        const token = getCookie('token');
+        if (token) {
+          const decoded = jwt.decode(token) as DecodedToken;
+
+          if (decoded && decoded.user_id) {
+            const config = getBasicRequestConfig(token);
+            const response = await axios.get(`/api/models/fields?tableName=${modelName}`, config);
+            setDetails(response.data.data);
+          }
+        }
       } catch (error) {
         console.error("Error al obtener detalles del modelo", error);
         setDetails([
