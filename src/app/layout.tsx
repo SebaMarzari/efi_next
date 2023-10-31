@@ -50,7 +50,7 @@ export default function RootLayout({
               </Content>
               {
                 showLayout && (
-                  <Footer className='footer'>Footer</Footer>
+                  <Footer className='footer'>© 2023 Copyright: Marzari - Moreno</Footer>
                 )
               }
             </Layout>

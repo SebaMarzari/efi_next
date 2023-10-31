@@ -7,4 +7,5 @@ export interface AuthContextTypes {
   setLoading: (loading: boolean) => void;
   token: string | null;
   setToken: (token: string | null) => void;
+  logout: () => void;
 }

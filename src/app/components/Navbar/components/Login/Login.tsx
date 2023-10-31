@@ -18,17 +18,8 @@ const Login = () => {
   }
   return (
     <div className="login-container">
-      <Button
-        onClick={() => handleNavigate('signin')}
-      >
-        Iniciar Sesión
-      </Button>
-      <Button
-        type="primary"
-        onClick={() => handleNavigate('signup')}
-      >
-        Registrarme
-      </Button>
+      <Button onClick={() => handleNavigate('signin')}>Iniciar Sesión</Button>
+      <Button type="primary" onClick={() => handleNavigate('signup')}>Registrarme</Button>
     </div>
   )
 }

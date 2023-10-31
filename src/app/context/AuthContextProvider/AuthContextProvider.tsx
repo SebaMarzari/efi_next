@@ -12,7 +12,6 @@ import axios from 'axios';
 // Functions
 import { getBasicRequestConfig } from '@/functions/getRequestConfig';
 
-
 export const AuthContext = React.createContext<AuthContextTypes>({
   user: null,
   setUser: () => { },
@@ -20,6 +19,7 @@ export const AuthContext = React.createContext<AuthContextTypes>({
   setLoading: (state: boolean) => { },
   token: null,
   setToken: (token: string | null) => { },
+  logout: () => { }, // Me aseguro de que el logout esté definido en el contexto
 });
 
 export const useAuthContext = () => React.useContext(AuthContext);
@@ -57,6 +57,17 @@ export const AuthContextProvider: FC<{ children: ReactNode }> = ({
     getUser()
   }, []);
 
+  const logout = async () => {
+    try {
+      setUser(null); 
+      setToken(null); // Quito el token (Ver)
+      deleteCookie('token'); // Borro la cookie (Ver)
+    } catch (error) {
+      console.error('Error al cerrar sesión:', error);
+    }
+  };
+
+
   return (
     <AuthContext.Provider value={{
       user,
@@ -65,6 +76,7 @@ export const AuthContextProvider: FC<{ children: ReactNode }> = ({
       setLoading,
       token,
       setToken,
+      logout,
     }}>
       {loading ? (
         <div className='loader-container'>

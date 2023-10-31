@@ -21,6 +21,7 @@ export const GET = authMiddleware(async (
           WHERE table_schema = 'public'
           AND table_name = '${tableName}'`
     const results = await sequelize.query(query);
+
     return NextResponse.json({
       message: 'Modelos obtenidos',
       data: results[0],

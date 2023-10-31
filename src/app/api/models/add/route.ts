@@ -6,7 +6,7 @@ import { authMiddleware } from "../../middleware/auth";
 import { translateToPostgreSQLTypes } from "./utils/postgresTypes";
 
 export const POST = authMiddleware(async (
-  req: NextApiRequest,
+  req: Request |NextApiRequest,
   res: NextApiResponse,
 ) => {
   try {
