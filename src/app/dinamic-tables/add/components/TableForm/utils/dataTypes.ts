@@ -1,4 +1,4 @@
-import { ISelect } from "../../../../../types/ISelect";
+import { ISelect } from "../../../../../../app/types/ISelect";
 
 export const dataTypes: ISelect[] = [
     {

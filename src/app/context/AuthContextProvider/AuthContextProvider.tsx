@@ -59,7 +59,7 @@ export const AuthContextProvider: FC<{ children: ReactNode }> = ({
 
   const logout = async () => {
     try {
-      setUser(null); 
+      setUser(null);
       setToken(null); // Quito el token (Ver)
       deleteCookie('token'); // Borro la cookie (Ver)
     } catch (error) {
@@ -78,11 +78,7 @@ export const AuthContextProvider: FC<{ children: ReactNode }> = ({
       setToken,
       logout,
     }}>
-      {loading ? (
-        <div className='loader-container'>
-          <span className='loader'></span>
-        </div>
-      ) : children}
+      {children}
     </AuthContext.Provider>
   );
 };

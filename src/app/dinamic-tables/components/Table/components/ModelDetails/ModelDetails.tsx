@@ -15,10 +15,11 @@ interface DecodedToken extends JwtPayload {
 
 interface Item {
   key: string;
-  columnName: string;
-  type: string;
-  defaultValue: boolean;
-  isNullable: boolean;
+  column_name: string;
+  data_type: string;
+  column_default: string;
+  is_nullable: string;
+  character_maximum_length: number;
 }
 
 const ModelDetails: React.FC<ModelDetailsProps> = ({ modelName }) => {
@@ -35,6 +36,7 @@ const ModelDetails: React.FC<ModelDetailsProps> = ({ modelName }) => {
           if (decoded && decoded.user_id) {
             const config = getBasicRequestConfig(token);
             const response = await axios.get(`/api/models/fields?tableName=${modelName}`, config);
+            console.log(response)
             setDetails(response.data.data);
           }
         }
@@ -43,10 +45,11 @@ const ModelDetails: React.FC<ModelDetailsProps> = ({ modelName }) => {
         setDetails([
           {
             key: "default",
-            columnName: "Nombre de Columna por Defecto",
-            type: "Tipo por Defecto",
-            defaultValue: false,
-            isNullable: false,
+            column_name: "Nombre de Columna por Defecto",
+            data_type: "Tipo por Defecto",
+            column_default: 'Columna por Defecto',
+            is_nullable: 'NO',
+            character_maximum_length: 0
           },
         ]);
       }
@@ -60,12 +63,13 @@ const ModelDetails: React.FC<ModelDetailsProps> = ({ modelName }) => {
       <h2>Detalles del Modelo: {modelName}</h2>
       {details.length > 0 ? (
         <ul>
-          {details.map((item) => (
-            <li key={item.key}>
-              <strong>Nombre de Columna:</strong> {item.columnName}<br />
-              <strong>Tipo:</strong> {item.type}<br />
-              <strong>Valor por Defecto:</strong> {item.defaultValue ? "Sí" : "No"}<br />
-              <strong>Es Nullable:</strong> {item.isNullable ? "Sí" : "No"}<br />
+          {details.map((item, index) => (
+            <li key={index}>
+              <strong>Nombre de Columna:</strong> {item.column_name}<br />
+              <strong>Tipo:</strong> {item.data_type}<br />
+              <strong>Valor por Defecto:</strong> {item.column_default}<br />
+              <strong>Es Nullable:</strong> {item.is_nullable === "SI" ? "Sí" : "No"}<br />
+              <strong>Cantidad de caracteres</strong> {item.character_maximum_length ? "Sí" : "No"}<br />
             </li>
           ))}
         </ul>

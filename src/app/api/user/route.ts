@@ -1,11 +1,10 @@
 import { authMiddleware } from "@/app/api/middleware/auth";
 import { getUserById } from "@/db/dal/user";
-import { NextApiRequest, NextApiResponse } from "next";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export const GET = authMiddleware(async (
-  req: NextApiRequest,
-  res: NextApiResponse,
+  req: NextRequest,
+  res: NextResponse,
 ) => {
   try {
     const { searchParams } = new URL(req.url as string)

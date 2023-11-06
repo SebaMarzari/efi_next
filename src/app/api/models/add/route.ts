@@ -1,13 +1,12 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import sequelize from '@/db/models/sequelize';
 import { authMiddleware } from "../../middleware/auth";
 // Utils
 import { translateToPostgreSQLTypes } from "./utils/postgresTypes";
 
 export const POST = authMiddleware(async (
-  req: Request |NextApiRequest,
-  res: NextApiResponse,
+  req: NextRequest,
+  res: NextResponse,
 ) => {
   try {
     // @ts-ignore

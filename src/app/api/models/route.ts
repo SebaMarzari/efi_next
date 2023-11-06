@@ -1,11 +1,10 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import sequelize from '@/db/models/sequelize';
 import { authMiddleware } from "../middleware/auth";
 
 export const GET = authMiddleware(async (
-  req: NextApiRequest,
-  res: NextApiResponse,
+  req: NextRequest,
+  res: NextResponse,
 ) => {
   try {
     await sequelize.sync({ force: false });
@@ -18,6 +17,7 @@ export const GET = authMiddleware(async (
       return {
         key: table,
         name: table,
+        actions: table,
       }
     });
     return NextResponse.json({

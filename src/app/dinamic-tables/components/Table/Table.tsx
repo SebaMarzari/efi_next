@@ -1,22 +1,26 @@
 'use client'
-import { ISelect } from "@/app/types/ISelect";
 import { getCookie } from "@/functions/cookies";
 import { getBasicRequestConfig } from "@/functions/getRequestConfig";
 // Components/antd
 import { Table as TableAnt } from "antd";
 import axios from "axios";
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import ModelDetails from "@/app/dinamic-tables/components/Table/components/ModelDetails/ModelDetails";
+import { ModelDetails } from "./components";
 
 interface ITable {
   key: string;
   name: string;
+  actions: string;
 }
 
 const Table = () => {
   const [tables, setTables] = useState<ITable[]>([])
   const [selectedModel, setSelectedModel] = useState<string | null>(null);
+
+  const handleClick = (id: string) => {
+    console.log(id);
+    setSelectedModel(id);
+  }
 
   const columns = [
     {
@@ -28,9 +32,9 @@ const Table = () => {
       title: 'Acciones',
       dataIndex: 'actions',
       key: 'actions',
-      render: (id: string) => (
+      render: (name: string) => (
         <div className='buttons-table-container'>
-          <button onClick={() => setSelectedModel(id)}>Ver más</button>
+          <button onClick={() => handleClick(name)}>Ver más</button>
         </div>
       )
     },

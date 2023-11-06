@@ -1,10 +1,9 @@
-import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 import jwt from 'jsonwebtoken';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
-export const authMiddleware = (handler: NextApiHandler) => async (
-  req: NextApiRequest,
-  res: NextApiResponse,
+export const authMiddleware = (handler: (req: NextRequest, res: NextResponse) => Promise<NextResponse>) => async (
+  req: NextRequest,
+  res: NextResponse,
 ) => {
   const headers = req.headers;
   let token: string | undefined;

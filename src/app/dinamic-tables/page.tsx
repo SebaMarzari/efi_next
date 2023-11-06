@@ -1,11 +1,25 @@
 // Styles
 import './styles/styles.css'
-import { authMiddleware } from "@/middleware/auth";
 import Link from "next/link";
+import jwt from 'jsonwebtoken';
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 import { Table } from './components';
-import ModelDetails from './components/Table/components/ModelDetails';
 
-const DinamicTables = () => {
+const DinamicTables = async () => {
+  const cookieList = cookies();
+  const token = cookieList.get('token');
+  const secret = process.env.JWT_KEY as string;
+
+  if (!token) {
+    redirect('/access');
+  }
+
+  try {
+    jwt.verify(token.value, secret);
+  } catch (error) {
+    redirect('/access');
+  }
 
   return (
     <div>
@@ -22,9 +36,8 @@ const DinamicTables = () => {
         </Link>
       </div>
       <Table />
-      <ModelDetails modelName={''} />
     </div>
   );
 }
 
-export default authMiddleware(DinamicTables);
+export default DinamicTables;

@@ -1,12 +1,27 @@
-import { authMiddleware } from "@/middleware/auth";
 import UserName from "./components";
 import Link from "next/link";
 import Image from 'next/image';
 // Styles
 import './styles/styles.css'
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+import jwt from "jsonwebtoken";
 
 const Dashboard = () => {
-   
+  const cookieList = cookies();
+  const token = cookieList.get('token');
+  const secret = process.env.JWT_KEY as string;
+
+  if (!token) {
+    redirect('/access');
+  }
+
+  try {
+    jwt.verify(token.value, secret);
+  } catch (error) {
+    redirect('/access');
+  }
+
   return (
     <div className="dashboard">
       <h1 className="title">Bienvenido</h1>
@@ -23,4 +38,4 @@ const Dashboard = () => {
   );
 };
 
-export default authMiddleware(Dashboard);
+export default Dashboard;
