@@ -1,6 +1,5 @@
 import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
-import type { prueba, pruebaCreationAttributes, pruebaId } from './prueba';
 
 export interface usersAttributes {
   id: number;
@@ -24,45 +23,39 @@ export class users extends Model<usersAttributes, usersCreationAttributes> imple
   createdAt!: Date;
   updatedAt!: Date;
 
-  // users hasOne prueba via user_id
-  prueba!: prueba;
-  getPrueba!: Sequelize.HasOneGetAssociationMixin<prueba>;
-  setPrueba!: Sequelize.HasOneSetAssociationMixin<prueba, pruebaId>;
-  createPrueba!: Sequelize.HasOneCreateAssociationMixin<prueba>;
-
   static initModel(sequelize: Sequelize.Sequelize): typeof users {
     return sequelize.define('users', {
-    id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
-    name: {
-      type: DataTypes.STRING(255),
-      allowNull: true
-    },
-    email: {
-      type: DataTypes.STRING(255),
-      allowNull: true
-    },
-    password: {
-      type: DataTypes.STRING(255),
-      allowNull: true
-    }
-  }, {
-    tableName: 'users',
-    schema: 'public',
-    timestamps: true,
-    indexes: [
-      {
-        name: "users_pkey",
-        unique: true,
-        fields: [
-          { name: "id" },
-        ]
+      id: {
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true
       },
-    ]
-  }) as typeof users;
+      name: {
+        type: DataTypes.STRING(255),
+        allowNull: true
+      },
+      email: {
+        type: DataTypes.STRING(255),
+        allowNull: true
+      },
+      password: {
+        type: DataTypes.STRING(255),
+        allowNull: true
+      }
+    }, {
+      tableName: 'users',
+      schema: 'public',
+      timestamps: true,
+      indexes: [
+        {
+          name: "users_pkey",
+          unique: true,
+          fields: [
+            { name: "id" },
+          ]
+        },
+      ]
+    }) as typeof users;
   }
 }

@@ -1,5 +1,5 @@
 'use client'
-import { useState, useContext } from "react"
+import { useState } from "react"
 // Next
 import { useRouter } from "next/navigation"
 // Components
@@ -8,13 +8,10 @@ import { Button, Input } from "antd"
 import { GithubOutlined, LinkedinOutlined, MailOutlined } from "@ant-design/icons"
 // Axios
 import axios from "axios"
-// Context
-import { AuthContext } from "@/app/context/AuthContextProvider/AuthContextProvider"
 import { setCookie } from "@/functions/cookies"
 
 const SignIn = () => {
   const router = useRouter()
-  const { setUser, setLoading } = useContext(AuthContext)
   const [message, setMessage] = useState('')
   const [showAlert, setShowAlert] = useState(false)
   const [loadingButton, setLoadingButton] = useState(false)
@@ -49,8 +46,6 @@ const SignIn = () => {
             const { user, accessToken } = res.data
             setShowAlert(false)
             setMessage('')
-            setLoading(true)
-            setUser(user)
             setCookie('token', accessToken)
             router.push('/dashboard')
           } else {
@@ -66,7 +61,6 @@ const SignIn = () => {
     } finally {
       setLoadingButton(false)
       const timer = setTimeout(() => {
-        setLoading(false)
       }, 1000)
       return () => clearTimeout(timer)
     }

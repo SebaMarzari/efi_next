@@ -1,7 +1,7 @@
 'use client'
-import { useCallback, useContext, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 // Next
-import { useRouter } from 'next/navigation';
+import { redirect } from 'next/navigation';
 // Styles
 import './styles/styles.css';
 // Components
@@ -11,20 +11,14 @@ import {
 } from './components'
 // Components/Antd
 import { Button, Typography } from 'antd';
-// Context
-import { Context } from '@/app/context/Provider/Context';
-import { AuthContext } from '../context/AuthContextProvider/AuthContextProvider';
 // Functions
 import { getCookie } from '@/functions/cookies';
-
+import jwt from 'jsonwebtoken';
 
 const Access = () => {
-  const {
-    accessType,
-    setAccessType,
-  } = useContext(Context)
-  const { token } = useContext(AuthContext)
-  const router = useRouter()
+  const token = getCookie('token');
+  const secret = process.env.JWT_KEY as string;
+  const [accessType, setAccessType] = useState<'signup' | 'signin'>('signin')
 
   const handleSignUp = useCallback(() => {
     const container = document.getElementById('container')
@@ -46,12 +40,12 @@ const Access = () => {
     }
   }, [accessType, handleSignIn, handleSignUp])
 
-  useEffect(() => {
-    const isLogged = getCookie('token')
-    if (isLogged && token) {
-      router.push('/dashboard')
-    }
-  }, [token, router])
+  try {
+    jwt.verify(token, secret);
+    redirect('/dashboard');
+  } catch (error) {
+    console.log(error);
+  }
 
   return (
     <div

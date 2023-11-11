@@ -111,6 +111,7 @@ a {
   line-height: '64px';
   background-color: rgba(var(--background-default), 0.8);
   border-bottom: 1px solid var(--divider);
+  padding: 0 1rem;
 }
 
 .content {

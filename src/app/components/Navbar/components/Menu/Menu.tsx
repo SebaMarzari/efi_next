@@ -1,13 +1,12 @@
-import React, { useState } from "react";
 import Link from 'next/link';
 // Styles
 import './styles/styles.css';
 
 const Menu = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  let isOpen = false;
 
   const toggleMenu = () => {
-    setIsOpen(!isOpen);
+    isOpen = !isOpen;
   };
 
   return (

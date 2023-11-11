@@ -1,5 +1,5 @@
 'use client'
-import { useState, useContext } from "react"
+import { useState } from "react"
 // Next
 import { useRouter } from "next/navigation"
 // Components
@@ -8,8 +8,6 @@ import { Button, Input } from "antd"
 import { GithubOutlined, LinkedinOutlined, MailOutlined } from "@ant-design/icons"
 // Axios
 import axios from "axios"
-// Context
-import { AuthContext } from "@/app/context/AuthContextProvider/AuthContextProvider"
 // Functions
 import { setCookie } from "@/functions/cookies"
 
@@ -17,7 +15,6 @@ const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&^])[A-Za-z
 
 const SignUp = () => {
   const router = useRouter()
-  const { setUser, setLoading } = useContext(AuthContext)
   const [message, setMessage] = useState('')
   const [showAlert, setShowAlert] = useState(false)
   const [name, setName] = useState('')
@@ -68,10 +65,8 @@ const SignUp = () => {
         .then(res => {
           if (res?.data?.status === 201) {
             const { token, user } = res.data
-            setLoading(true)
             setShowAlert(false)
             setMessage('')
-            setUser(user)
             setCookie('token', token)
             router.push('/dashboard')
           } else {
@@ -89,7 +84,6 @@ const SignUp = () => {
     } finally {
       setLoadingButton(false)
       const timer = setTimeout(() => {
-        setLoading(false)
       }, 1000)
       return () => clearTimeout(timer)
     }

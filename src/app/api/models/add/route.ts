@@ -39,14 +39,18 @@ export const POST = authMiddleware(async (
       }
     });
     query += `);`;
+    await sequelize.query(query);
+    query = '';
     query += indexesQuery;
+    await sequelize.query(query);
+    query = '';
     if (indexes.length > 0) {
       indexes.forEach((index: any) => {
         query += `\nCREATE INDEX ${index.name} ON ${tableName} (${index.field});`;
       });
     }
-
     await sequelize.query(query);
+
     // Export database
     const dbName = process.env.DB_NAME as string;
     const dbUser = process.env.DB_USER as string;

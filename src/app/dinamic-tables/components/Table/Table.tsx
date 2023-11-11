@@ -1,10 +1,10 @@
 'use client'
+import React, { Suspense, useEffect, useState } from "react";
 import { getCookie } from "@/functions/cookies";
 import { getBasicRequestConfig } from "@/functions/getRequestConfig";
 // Components/antd
 import { Table as TableAnt } from "antd";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
 import { ModelDetails } from "./components";
 
 interface ITable {
@@ -53,11 +53,13 @@ const Table = () => {
   return (
     <div>
       <TableAnt dataSource={tables} columns={columns} />
-      {selectedModel && (
-        <div>
-          <ModelDetails modelName={selectedModel} /> {/* Renderiza ModelDetails con el modelo seleccionado */}
-        </div>
-      )}
+      <Suspense fallback={<div>Loading...</div>}>
+        {selectedModel && (
+          <div>
+            <ModelDetails modelName={selectedModel} />
+          </div>
+        )}
+      </Suspense>
     </div>
   )
 }
