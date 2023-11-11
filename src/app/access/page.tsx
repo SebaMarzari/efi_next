@@ -1,7 +1,5 @@
 'use client'
 import { useCallback, useEffect, useState } from 'react';
-// Next
-import { redirect } from 'next/navigation';
 // Styles
 import './styles/styles.css';
 // Components
@@ -11,13 +9,8 @@ import {
 } from './components'
 // Components/Antd
 import { Button, Typography } from 'antd';
-// Functions
-import { getCookie } from '@/functions/cookies';
-import jwt from 'jsonwebtoken';
 
 const Access = () => {
-  const token = getCookie('token');
-  const secret = process.env.JWT_KEY as string;
   const [accessType, setAccessType] = useState<'signup' | 'signin'>('signin')
 
   const handleSignUp = useCallback(() => {
@@ -39,13 +32,6 @@ const Access = () => {
       handleSignIn()
     }
   }, [accessType, handleSignIn, handleSignUp])
-
-  try {
-    jwt.verify(token, secret);
-    redirect('/dashboard');
-  } catch (error) {
-    console.log(error);
-  }
 
   return (
     <div
