@@ -5,6 +5,8 @@ import jwt from 'jsonwebtoken';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { Table } from './components';
+import { Suspense } from 'react';
+import Loading from './loading';
 
 const DinamicTables = async () => {
   const cookieList = cookies();
@@ -22,21 +24,21 @@ const DinamicTables = async () => {
   }
 
   return (
-    <div>
-      <div
-        className="header-table-container"
-      >
-        <h1
-          className="title-table"
-        >
-          Tablas dinamicas
-        </h1>
-        <Link href="/dinamic-tables/add">
-          Agregar
-        </Link>
+    <section>
+      <div className="header-table-container">
+        <Suspense fallback={<Loading />}>
+          <h1 className="title-table">
+            Tablas dinamicas
+          </h1>
+          <Link href="/dinamic-tables/add">
+            Agregar
+          </Link>
+        </Suspense>
       </div>
-      <Table />
-    </div>
+      <Suspense fallback={<Loading />}>
+        <Table />
+      </Suspense>
+    </section>
   );
 }
 
